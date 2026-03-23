@@ -31,11 +31,11 @@ blog-humanize = "blog_pipeline.humanizer:_cli"
 blog-pipeline = "blog_pipeline.pipeline:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["blog_pipeline"]
+packages = ["src/blog_pipeline"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
 
 [project.urls]
-Repository = "https://github.com/ownmy-app/blog-pipeline"
+Repository = "https://github.com/nometria/blog-pipeline"
