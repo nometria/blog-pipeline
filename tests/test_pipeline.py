@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 
 def test_check_banned_words_flags_corporate_speak():
-    from humanizer import check_banned_words
+    from blog_pipeline.humanizer import check_banned_words
 
     text = "This solution leverages synergies to deliver holistic value."
     hits = check_banned_words(text)
@@ -15,7 +15,7 @@ def test_check_banned_words_flags_corporate_speak():
 
 
 def test_check_banned_words_passes_clean_text():
-    from humanizer import check_banned_words
+    from blog_pipeline.humanizer import check_banned_words
 
     text = "Here is how to build a login page in ten minutes."
     hits = check_banned_words(text)
@@ -23,7 +23,7 @@ def test_check_banned_words_passes_clean_text():
 
 
 def test_check_banned_words_flags_em_dash_clusters():
-    from humanizer import check_banned_words
+    from blog_pipeline.humanizer import check_banned_words
 
     text = "We did this — and that — and also this — and more."
     hits = check_banned_words(text)
@@ -35,11 +35,11 @@ def test_check_banned_words_flags_em_dash_clusters():
 
 def test_humanize_post_returns_string(monkeypatch):
     """humanize_post should return a string (mock the LLM call)."""
-    from humanizer import humanize_post
+    from blog_pipeline.humanizer import humanize_post
 
     # Patch the OpenAI call to avoid real API usage in CI
     monkeypatch.setattr(
-        "humanizer.openai",
+        "blog_pipeline.humanizer.anthropic",
         None,
         raising=False,
     )
