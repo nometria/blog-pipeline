@@ -78,12 +78,16 @@ def humanize_post(content: str, model: str = None) -> str:
 
 
 def check_banned_words(content: str) -> list[str]:
-    """Returns list of banned words still present in content (for QC)."""
+    """Returns list of banned words / AI-tells still present in content (for QC)."""
     import re
     found = []
     for word in BANNED_WORDS:
         if re.search(r'\b' + re.escape(word) + r'\b', content, re.IGNORECASE):
             found.append(word)
+    # Flag em-dash clusters (2+ em-dashes = AI tell)
+    em_dash_count = content.count("\u2014")
+    if em_dash_count >= 2:
+        found.append(f"em-dash \u2014 used {em_dash_count}x (AI tell — remove all)")
     return found
 
 
