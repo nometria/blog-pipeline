@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "blog-pipeline"
+version = "0.1.0"
+description = "AI blog generator with 6-pass pipeline and built-in humanizer that removes AI writing tells."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["blog", "ai", "content", "anthropic", "humanizer", "seo"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "anthropic>=0.30.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+blog-generate = "blog_pipeline.pipeline:main"
+blog-audit    = "blog_pipeline.audit:main"
+blog-humanize = "blog_pipeline.humanizer:_cli"
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = "blog_pipeline"
+
+[project.urls]
+Repository = "https://github.com/YOUR_ORG/blog-pipeline"
