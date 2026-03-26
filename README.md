@@ -12,7 +12,7 @@ it enforces a strict writing ruleset that removes every common AI tell.
 
 ```bash
 # Clone and install
-git clone https://github.com/ownmy-app/blog-pipeline
+git clone https://github.com/nometria/blog-pipeline
 cd blog-pipeline
 pip install -e .
 
@@ -82,7 +82,7 @@ clean = humanize_post(my_ai_draft)
 ## Setup
 
 ```bash
-git clone https://github.com/ownmy-app/blog-pipeline
+git clone https://github.com/nometria/blog-pipeline
 cd blog-pipeline
 pip install -e .
 cp .env.example .env

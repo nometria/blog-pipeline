@@ -242,15 +242,15 @@ def save_registry(reg: dict):
 # ── CLI ───────────────────────────────────────────────────────────────────────
 
 def main():
-    require_anthropic()
-    BLOGS_DIR.mkdir(exist_ok=True)
-
     parser = argparse.ArgumentParser(description="AI blog pipeline")
     parser.add_argument("--passes", default="1-6", help="Passes to run, e.g. 1-6 or 3-4 or 4")
     parser.add_argument("--count", type=int, default=5, help="Number of blogs to generate")
     parser.add_argument("--niche", default="developer tooling and infrastructure",
                         help="Topic niche for topic generation")
     args = parser.parse_args()
+
+    require_anthropic()
+    BLOGS_DIR.mkdir(exist_ok=True)
 
     # Parse pass range
     p = args.passes.split("-")
