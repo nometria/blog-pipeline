@@ -1,16 +1,6 @@
 # blog-pipeline
 
-<div align="center">
-
-**[Nometria](https://nometria.com)** takes AI-built apps to production on AWS — secure, scalable, ready for real users.
-
-<sub><i>Content marketing is how developer tools grow. We built this pipeline to generate our own blog posts, then open-sourced it because the humanizer pass genuinely produces better content than anything else we tried.</i></sub>
-
-[![Deploy with Nometria](https://img.shields.io/badge/Deploy%20with-Nometria-111827?style=for-the-badge)](https://nometria.com)
-
-</div>
-
----
+Built by the [Nometria](https://nometria.com) team — we take AI-built apps to production.
 
 AI blog generator that doesn't sound like AI.
 
@@ -522,6 +512,3 @@ pytest tests/ -v
 
 MIT
 
----
-
-<p align="center">Made with ❤️ by <a href="https://nometria.com">Nometria</a> — deploy AI apps to production in one click</p>
