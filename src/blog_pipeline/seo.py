@@ -215,7 +215,7 @@ def analyze_links(content: str) -> Dict:
         is_internal = url.startswith("/") or url.startswith("#")
         links.append({"text": text, "url": url, "is_internal": is_internal})
 
-    internal = sum(1 for l in links if l["is_internal"])
+    internal = sum(1 for lnk in links if lnk["is_internal"])
     external = len(links) - internal
 
     return {

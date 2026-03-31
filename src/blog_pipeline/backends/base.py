@@ -20,7 +20,7 @@ has the following shape::
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 
 class BlogBackend(ABC):

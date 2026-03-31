@@ -12,10 +12,9 @@ Usage::
     print(result["flags"])      # list of detected issues
 """
 
-import math
 import re
 import statistics
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 
 def _strip_code_blocks(text: str) -> str:
@@ -211,8 +210,8 @@ def _sentence_length_variance(text: str) -> float:
     lengths = [len(_get_words(s)) for s in sentences]
 
     # Check for presence of very short (< 5 words) and very long (> 25 words) sentences
-    very_short = sum(1 for l in lengths if l < 5)
-    very_long = sum(1 for l in lengths if l > 25)
+    very_short = sum(1 for n in lengths if n < 5)
+    very_long = sum(1 for n in lengths if n > 25)
 
     total = len(lengths)
     short_pct = very_short / total

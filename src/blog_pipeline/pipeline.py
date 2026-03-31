@@ -36,7 +36,7 @@ from .config import (
     DEFAULT_AUTHOR, DEFAULT_AUTHOR_TITLE, DEFAULT_AUTHOR_IMAGE,
     require_llm,
 )
-from .humanizer import humanize_post, check_banned_words, humanize_post_scored
+from .humanizer import check_banned_words, humanize_post_scored
 
 # ── Unsplash cover pool (deterministic pick via UUID hash) ────────────────────
 COVER_POOL = {
@@ -344,7 +344,7 @@ def main():
     # Pass 7: audit gate (optional)
     if args.audit and start_pass <= 7 <= end_pass:
         print("Pass 7: running audit...")
-        from .audit import score_post, run_audit
+        from .audit import run_audit
         results = run_audit(BLOGS_DIR, min_score=args.audit_threshold, seo=True)
         fail_count = sum(1 for r in results if r["score"] < args.audit_threshold)
         print(f"  -> {len(results)} posts audited, {fail_count} below threshold ({args.audit_threshold})")

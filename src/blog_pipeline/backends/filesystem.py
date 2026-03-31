@@ -9,7 +9,6 @@ Reads ``BLOGS_DIR`` from config (default: ``./blogs``).
 import json
 import re
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, List
 
 from .base import BlogBackend
