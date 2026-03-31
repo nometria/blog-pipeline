@@ -1,0 +1,139 @@
+# Scheduled blog generation - runs weekly, also manual trigger
+# Usage: Add this workflow to any repo. Set secrets: LLM_PROVIDER, ANTHROPIC_API_KEY (or OPENAI_API_KEY),
+# and optionally backend secrets (SUPABASE_URL, WP_URL, etc.)
+
+name: Generate Blogs
+
+on:
+  schedule:
+    # Weekly on Monday at 9:00 AM UTC
+    - cron: "0 9 * * 1"
+
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Number of blog posts to generate"
+        required: false
+        default: "5"
+        type: string
+      niche:
+        description: "Topic niche for generation"
+        required: false
+        default: "developer tooling and infrastructure"
+        type: string
+      passes:
+        description: "Pipeline passes to run (e.g. 1-6, 1-7, 3-4)"
+        required: false
+        default: "1-6"
+        type: string
+      backend:
+        description: "Storage backend"
+        required: false
+        default: "filesystem"
+        type: choice
+        options:
+          - filesystem
+          - supabase
+          - postgres
+          - wordpress
+          - notion
+          - contentful
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install blog-pipeline
+        run: pip install "blog-pipeline[all]"
+
+      - name: Run blog generation
+        env:
+          # LLM config
+          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER || 'anthropic' }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+          # Backend config (set the relevant secrets for your chosen backend)
+          BLOG_BACKEND: ${{ inputs.backend || 'filesystem' }}
+          BLOGS_DIR: ./blogs
+          BLOG_AUTHOR: ${{ secrets.BLOG_AUTHOR }}
+          BLOG_AUTHOR_TITLE: ${{ secrets.BLOG_AUTHOR_TITLE }}
+          BLOG_AUTHOR_IMAGE: ${{ secrets.BLOG_AUTHOR_IMAGE }}
+
+          # Supabase
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_BLOGS_TABLE: ${{ secrets.SUPABASE_BLOGS_TABLE }}
+
+          # PostgreSQL
+          POSTGRES_DSN: ${{ secrets.POSTGRES_DSN }}
+
+          # WordPress
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+
+          # Notion
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
+          # Contentful
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_MGMT_TOKEN: ${{ secrets.CONTENTFUL_MGMT_TOKEN }}
+          CONTENTFUL_ENVIRONMENT: ${{ secrets.CONTENTFUL_ENVIRONMENT }}
+
+        run: |
+          PASSES="${{ inputs.passes || '1-6' }}"
+          COUNT="${{ inputs.count || '5' }}"
+          NICHE="${{ inputs.niche || 'developer tooling and infrastructure' }}"
+
+          echo "=== Blog Generation ==="
+          echo "Passes: $PASSES"
+          echo "Count:  $COUNT"
+          echo "Niche:  $NICHE"
+          echo "Backend: $BLOG_BACKEND"
+          echo "========================"
+
+          blog-generate \
+            --passes "$PASSES" \
+            --count "$COUNT" \
+            --niche "$NICHE" \
+            --audit --audit-threshold 50
+
+      - name: Commit generated blogs
+        if: ${{ inputs.backend == 'filesystem' || inputs.backend == '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blogs/ || true
+          if git diff --cached --quiet; then
+            echo "No new blog files to commit."
+          else
+            git commit -m "chore: generate blog posts [$(date -u +%Y-%m-%d)]"
+            git push
+          fi
+
+      - name: Upload generation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-generation-report
+          path: |
+            blogs/_registry.json
+            blogs/_topics.json
+            blogs/_plans.json
+            blogs/_metadata.json
+          retention-days: 30
+          if-no-files-found: ignore

@@ -9,6 +9,18 @@ detection scoring, and a quality audit gate.
 
 ---
 
+## Quick Start
+
+```bash
+pip install blog-pipeline
+export ANTHROPIC_API_KEY=sk-ant-...
+blog-generate --count 5 --niche "developer tooling and SaaS"
+```
+
+That's it. Five humanized, SEO-scored blog posts land in `./blogs/`.
+
+---
+
 ## Install
 
 ```bash
@@ -24,7 +36,7 @@ pip install "blog-pipeline[postgres]"       # PostgreSQL backend
 pip install "blog-pipeline[all]"            # everything
 ```
 
-From source:
+From source (for development):
 
 ```bash
 git clone https://github.com/nometria/blog-pipeline
@@ -34,24 +46,15 @@ pip install -e ".[dev]"
 
 ---
 
-## Quick Start
+## Features
 
-```bash
-# Set your API key
-export ANTHROPIC_API_KEY=sk-ant-...
-
-# Generate 5 blog posts (writes to ./blogs/)
-blog-generate --count 5 --niche "developer tooling and SaaS"
-
-# Re-humanize existing drafts only
-blog-generate --passes 4
-
-# Full pipeline with audit gate
-blog-generate --passes 1-7 --audit --audit-threshold 60
-
-# Run tests
-pytest tests/ -v
-```
+- **Multi-LLM**: Anthropic (default), OpenAI, or any provider via LiteLLM -- switch with one env var
+- **Multi-backend**: Write to filesystem, Supabase, PostgreSQL, WordPress, Notion, or Contentful
+- **Humanizer**: Configurable rule engine that strips 50+ banned words, enforces contractions, active voice, paragraph variety, and more -- before/after AI detection scoring
+- **AI detection**: Pure-Python heuristic scorer (0.0 = human, 1.0 = AI) with weighted checks for sentence uniformity, banned word density, passive voice, em-dash usage, and more
+- **SEO analysis**: Flesch-Kincaid readability, keyword density, heading structure, meta quality -- scored out of 100
+- **Audit gate**: Composite scoring (quality 60% + AI detection 20% + SEO 20%) with optional auto-unpublish for weak posts
+- **GitHub Action**: Scheduled weekly generation with manual trigger -- see below
 
 ---
 
@@ -67,6 +70,97 @@ pytest tests/ -v
 | 5 | Add internal links across all posts |
 | 6 | Push to configured backend + update local registry |
 | 7 | Audit gate: score posts, reject weak ones (optional, `--audit`) |
+
+---
+
+## GitHub Action
+
+Add `.github/workflows/generate.yml` to your repo for automated weekly blog generation. See the full workflow in this repo, or copy the example below.
+
+### Minimal workflow
+
+```yaml
+name: Generate Blogs
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"   # Weekly Monday 9am UTC
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Number of posts"
+        default: "5"
+      niche:
+        description: "Topic niche"
+        default: "developer tooling and infrastructure"
+      passes:
+        description: "Pipeline passes (e.g. 1-6, 1-7)"
+        default: "1-6"
+      backend:
+        description: "Storage backend"
+        default: "filesystem"
+        type: choice
+        options: [filesystem, supabase, postgres, wordpress, notion, contentful]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install "blog-pipeline[all]"
+
+      - name: Generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BLOG_BACKEND: ${{ inputs.backend || 'filesystem' }}
+          # Add other backend secrets as needed:
+          # SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          # SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          blog-generate \
+            --passes "${{ inputs.passes || '1-6' }}" \
+            --count "${{ inputs.count || '5' }}" \
+            --niche "${{ inputs.niche || 'developer tooling and infrastructure' }}" \
+            --audit --audit-threshold 50
+
+      - name: Commit generated blogs
+        if: ${{ inputs.backend == 'filesystem' || inputs.backend == '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blogs/ || true
+          git diff --cached --quiet || git commit -m "chore: generate blog posts [$(date -u +%Y-%m-%d)]" && git push
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: blog-generation-report
+          path: blogs/_registry.json
+          if-no-files-found: ignore
+```
+
+### Required secrets
+
+| Secret | When needed |
+|--------|-------------|
+| `ANTHROPIC_API_KEY` | Using Anthropic (default) |
+| `OPENAI_API_KEY` | Using OpenAI (`LLM_PROVIDER=openai`) |
+| `SUPABASE_URL` + `SUPABASE_SERVICE_KEY` | Supabase backend |
+| `POSTGRES_DSN` | PostgreSQL backend |
+| `WP_URL` + `WP_USER` + `WP_APP_PASSWORD` | WordPress backend |
+| `NOTION_API_KEY` + `NOTION_DATABASE_ID` | Notion backend |
+| `CONTENTFUL_SPACE_ID` + `CONTENTFUL_MGMT_TOKEN` | Contentful backend |
+
+### Manual trigger
+
+Go to **Actions > Generate Blogs > Run workflow** to generate on demand with custom inputs for count, niche, passes, and backend.
 
 ---
 
@@ -303,30 +397,6 @@ Options:
   --in-place           Overwrite input file
   --score              Show AI detection scores
 ```
-
----
-
-## GitHub Action
-
-Use blog-pipeline as a GitHub Action for scheduled blog generation:
-
-```yaml
-- uses: nometria/blog-pipeline@v0.2
-  with:
-    passes: "1-7"
-    count: "3"
-    niche: "developer tooling"
-    audit: "true"
-    audit-threshold: "60"
-  env:
-    ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-    BLOG_BACKEND: supabase
-    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-    SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-```
-
-See `examples/blog-pipeline-action.yml` for a complete workflow with weekly
-schedule and manual trigger.
 
 ---
 
