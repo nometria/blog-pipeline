@@ -1,0 +1,167 @@
+{
+  "Building a Developer Platform: From CI/CD Pipelines to Internal Developer Portals": {
+    "title": "Building a Developer Platform: From CI/CD Pipelines to Internal Developer Portals",
+    "type": "technical-deep-dive",
+    "outline": [
+      "Introduction: The Evolution of Developer Platforms and Why They Matter",
+      "Understanding the Developer Platform Landscape: Key Components and Architecture",
+      "Building the Foundation: CI/CD Pipelines as the Backbone",
+      "Infrastructure as Code: Terraform, Pulumi, and GitOps Workflows",
+      "Service Catalogs and Self-Service Infrastructure Provisioning",
+      "Internal Developer Portals: Backstage, Port, and Custom Solutions",
+      "Integrating Observability: Metrics, Logging, and Tracing into Your Platform",
+      "Security and Governance: Policy as Code and Access Management",
+      "Developer Experience (DevEx): Measuring and Optimizing Platform Adoption",
+      "Real-World Implementation: A Step-by-Step Platform Engineering Roadmap",
+      "Common Pitfalls and Lessons Learned from Platform Teams",
+      "Conclusion: Future Trends in Developer Platforms and Platform Engineering"
+    ],
+    "word_count": 1200,
+    "seo_keywords": [
+      "developer platform",
+      "internal developer portal",
+      "CI/CD pipelines",
+      "platform engineering",
+      "Backstage",
+      "DevOps",
+      "self-service infrastructure"
+    ],
+    "tags": [
+      "platform-engineering",
+      "devops",
+      "ci-cd",
+      "developer-experience",
+      "internal-developer-portal",
+      "infrastructure"
+    ]
+  },
+  "Bazel vs Gradle vs Nx: Choosing the Right Build System for Monorepos in 2024": {
+    "title": "Bazel vs Gradle vs Nx: Choosing the Right Build System for Monorepos in 2024",
+    "type": "comparison",
+    "outline": [
+      "Introduction: The Rise of Monorepos and Why Build Systems Matter",
+      "What is a Monorepo? Quick Overview and Benefits",
+      "Bazel: Google's Scalable Build System - Overview, Pros, and Cons",
+      "Gradle: The Flexible JVM-First Build Tool - Overview, Pros, and Cons",
+      "Nx: The Modern JavaScript/TypeScript Monorepo Solution - Overview, Pros, and Cons",
+      "Head-to-Head Comparison: Performance and Build Speed",
+      "Head-to-Head Comparison: Language and Ecosystem Support",
+      "Head-to-Head Comparison: Learning Curve and Developer Experience",
+      "Head-to-Head Comparison: Caching and Incremental Builds",
+      "Head-to-Head Comparison: CI/CD Integration and Cloud Support",
+      "Use Case Scenarios: Which Tool Fits Your Team Best",
+      "Migration Considerations and Getting Started Tips",
+      "Conclusion: Making the Right Choice for Your Monorepo in 2024"
+    ],
+    "word_count": 1200,
+    "seo_keywords": [
+      "monorepo build system",
+      "Bazel vs Gradle",
+      "Nx monorepo",
+      "best build tool 2024",
+      "monorepo comparison"
+    ],
+    "tags": [
+      "DevOps",
+      "Build Systems",
+      "Monorepo",
+      "Bazel",
+      "Gradle",
+      "Nx",
+      "Developer Tools"
+    ]
+  },
+  "How We Reduced Build Times by 80% at Scale: A Kubernetes-Based CI Infrastructure Journey": {
+    "title": "How We Reduced Build Times by 80% at Scale: A Kubernetes-Based CI Infrastructure Journey",
+    "type": "case-study",
+    "outline": [
+      "Introduction: The Breaking Point - Our CI/CD Pain Points at Scale",
+      "The Problem: Understanding Our Legacy Build Infrastructure Bottlenecks",
+      "Evaluating Solutions: Why We Chose Kubernetes for CI Infrastructure",
+      "Architecture Deep Dive: Designing the New Kubernetes-Based CI System",
+      "Implementation Journey: Migration Strategy and Key Technical Decisions",
+      "Optimizations That Made the Difference: Caching, Parallelization, and Auto-scaling",
+      "Results and Metrics: Quantifying the 80% Build Time Reduction",
+      "Lessons Learned: What We Would Do Differently",
+      "Conclusion: Key Takeaways and Recommendations for Your CI Journey"
+    ],
+    "word_count": 1200,
+    "seo_keywords": [
+      "kubernetes CI/CD",
+      "reduce build times",
+      "CI infrastructure scaling",
+      "kubernetes build pipeline",
+      "continuous integration optimization"
+    ],
+    "tags": [
+      "kubernetes",
+      "CI/CD",
+      "DevOps",
+      "infrastructure",
+      "performance optimization",
+      "case study"
+    ]
+  },
+  "How to Design and Implement Feature Flags Infrastructure That Scales": {
+    "title": "How to Design and Implement Feature Flags Infrastructure That Scales",
+    "type": "how-to",
+    "outline": [
+      "Introduction: Why Feature Flags Infrastructure Matters at Scale",
+      "Step 1: Define Your Feature Flag Architecture Requirements",
+      "Step 2: Choose the Right Storage Backend for Flag Configuration",
+      "Step 3: Design an Efficient Flag Evaluation Engine",
+      "Step 4: Implement Caching Strategies for Low-Latency Performance",
+      "Step 5: Build a Robust SDK for Application Integration",
+      "Step 6: Set Up Real-Time Flag Updates and Propagation",
+      "Step 7: Implement Targeting Rules and User Segmentation",
+      "Step 8: Add Monitoring, Logging, and Analytics",
+      "Step 9: Plan for High Availability and Disaster Recovery",
+      "Step 10: Create a Management Dashboard and API",
+      "Common Pitfalls to Avoid When Scaling Feature Flags",
+      "Conclusion: Best Practices for Long-Term Feature Flag Success"
+    ],
+    "word_count": 1200,
+    "seo_keywords": [
+      "feature flags infrastructure",
+      "scalable feature flags",
+      "feature flag architecture",
+      "feature toggle system",
+      "feature flags at scale"
+    ],
+    "tags": [
+      "feature flags",
+      "software architecture",
+      "DevOps",
+      "scalability",
+      "continuous delivery"
+    ]
+  },
+  "Why Your Team Should Stop Using Microservices for Developer Tooling": {
+    "title": "Why Your Team Should Stop Using Microservices for Developer Tooling",
+    "type": "opinion",
+    "outline": [
+      "Introduction: The microservices hype has gone too far in internal tooling",
+      "The hidden complexity tax of microservices for internal tools",
+      "Why developer tooling has different requirements than production systems",
+      "The debugging nightmare: When your CLI depends on 12 services",
+      "Operational overhead that drains engineering time",
+      "The case for monoliths in developer tooling",
+      "When microservices actually make sense for internal tools",
+      "Practical steps to simplify your developer tooling architecture",
+      "Conclusion: Optimize for developer experience, not architectural purity"
+    ],
+    "word_count": 1200,
+    "seo_keywords": [
+      "microservices developer tools",
+      "internal tooling architecture",
+      "monolith vs microservices"
+    ],
+    "tags": [
+      "software architecture",
+      "developer experience",
+      "microservices",
+      "engineering productivity",
+      "devops"
+    ]
+  }
+}
