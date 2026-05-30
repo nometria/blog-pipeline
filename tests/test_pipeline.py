@@ -50,8 +50,14 @@ def test_humanize_post_returns_string(monkeypatch):
 
 
 def test_version():
+    """__init__ version must match pyproject.toml (bump-proof, not pinned)."""
+    import tomllib
+    from pathlib import Path
     from blog_pipeline import __version__
-    assert __version__ == "0.2.0"
+
+    pyproject = Path(__file__).parent.parent / "pyproject.toml"
+    expected = tomllib.loads(pyproject.read_text())["project"]["version"]
+    assert __version__ == expected, f"__init__ {__version__} != pyproject {expected}"
 
 
 def test_check_ai_tells():
