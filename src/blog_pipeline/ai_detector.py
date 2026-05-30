@@ -1,5 +1,5 @@
 """
-AI content detector — heuristic scoring to estimate AI-likeness.
+AI content detector - heuristic scoring to estimate AI-likeness.
 
 Pure Python, no external dependencies. Returns a score from 0.0 (human)
 to 1.0 (very likely AI-generated) based on multiple linguistic signals.

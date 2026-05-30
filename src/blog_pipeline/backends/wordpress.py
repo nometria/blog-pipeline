@@ -1,5 +1,5 @@
 """
-WordPress backend — uses the WP REST API (``wp-json/wp/v2/posts``).
+WordPress backend - uses the WP REST API (``wp-json/wp/v2/posts``).
 
 Required env vars:
     WP_URL            Base URL of the WP site, e.g. https://myblog.com

@@ -1,5 +1,5 @@
 """
-Humanizer pass — removes AI writing tells from generated blog content.
+Humanizer pass - removes AI writing tells from generated blog content.
 
 The rules are loaded from YAML (see humanizer_rules.py) and the system
 prompt is built dynamically.  The LLM call routes through the

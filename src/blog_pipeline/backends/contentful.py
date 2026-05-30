@@ -1,5 +1,5 @@
 """
-Contentful backend — uses the Contentful Management API via urllib.
+Contentful backend - uses the Contentful Management API via urllib.
 
 Required env vars:
     CONTENTFUL_SPACE_ID

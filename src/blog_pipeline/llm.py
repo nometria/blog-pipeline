@@ -1,5 +1,5 @@
 """
-LLM abstraction layer — routes to anthropic, openai, or litellm.
+LLM abstraction layer - routes to anthropic, openai, or litellm.
 
 Provider selection:
     LLM_PROVIDER=anthropic  (default)

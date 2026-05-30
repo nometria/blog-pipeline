@@ -1,5 +1,5 @@
 """
-SEO analysis module — pure-Python scoring for blog content.
+SEO analysis module - pure-Python scoring for blog content.
 
 No external dependencies. All heuristics work on raw markdown text.
 

@@ -1,4 +1,4 @@
-"""Tests for blog storage backends — filesystem backend end-to-end."""
+"""Tests for blog storage backends - filesystem backend end-to-end."""
 
 import json
 import os

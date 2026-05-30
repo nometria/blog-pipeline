@@ -1,5 +1,5 @@
 """
-PostgreSQL backend — uses psycopg2 to store posts in a ``blog_posts`` table.
+PostgreSQL backend - uses psycopg2 to store posts in a ``blog_posts`` table.
 
 Required env var:
     POSTGRES_DSN   e.g. postgresql://user:pass@host:5432/dbname

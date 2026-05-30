@@ -1,5 +1,5 @@
 """
-Notion backend — creates pages in a Notion database via the Notion API.
+Notion backend - creates pages in a Notion database via the Notion API.
 
 Required env vars:
     NOTION_API_KEY         Integration token (starts with ``ntn_`` or ``secret_``)

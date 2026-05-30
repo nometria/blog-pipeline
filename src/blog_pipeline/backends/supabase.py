@@ -1,5 +1,5 @@
 """
-Supabase backend — talks to the Supabase REST API via urllib (no extra deps).
+Supabase backend - talks to the Supabase REST API via urllib (no extra deps).
 
 Required env vars:
     SUPABASE_URL

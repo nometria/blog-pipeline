@@ -1,5 +1,5 @@
 """
-Blog storage backends — factory + lazy imports.
+Blog storage backends - factory + lazy imports.
 
 Usage:
     from blog_pipeline.backends import get_backend

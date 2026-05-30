@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Blog audit pass — scores existing posts and optionally unpublishes weak ones.
+Blog audit pass - scores existing posts and optionally unpublishes weak ones.
 
 Composite scoring:
   - Quality:       60%  (word count, headings, code blocks, AI tells)
@@ -52,9 +52,9 @@ def score_post(content: str, seo: bool = False) -> Dict[str, Any]:
     Score a blog post 0-100.
 
     Composite:
-        quality    60%  — word count, headings, code blocks, basic AI tells
-        ai_detect  20%  — from ai_detector.score_ai()
-        seo_score  20%  — from seo.score_seo() (only when seo=True)
+        quality    60%  - word count, headings, code blocks, basic AI tells
+        ai_detect  20%  - from ai_detector.score_ai()
+        seo_score  20%  - from seo.score_seo() (only when seo=True)
 
     Returns detailed breakdown dict with 'score' key.
     """

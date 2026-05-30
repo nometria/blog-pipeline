@@ -1,4 +1,4 @@
-"""blog-pipeline — AI blog generation with humanizer pass."""
+"""blog-pipeline - AI blog generation with humanizer pass."""
 
 from .humanizer import humanize_post, check_banned_words, check_ai_tells, humanize_post_scored
 from .llm import ask_llm
@@ -29,4 +29,4 @@ __all__ = [
     "score_ai",
 ]
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

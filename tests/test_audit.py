@@ -1,4 +1,4 @@
-"""Tests for the audit module — score_post and run_audit."""
+"""Tests for the audit module - score_post and run_audit."""
 
 import json
 import os

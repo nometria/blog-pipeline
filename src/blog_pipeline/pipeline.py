@@ -7,10 +7,10 @@ Passes:
   1  Identify new topics to write
   2  Plan structure per topic (comparison / technical-deep-dive / case-study / how-to / opinion)
   3  Generate full markdown content
-  4  Humanize (remove AI tells — see humanizer.py)
+  4  Humanize (remove AI tells - see humanizer.py)
   5  Add internal links across the batch
   6  Push to backend + update local registry
-  7  Audit (optional — score posts and reject weak ones)
+  7  Audit (optional - score posts and reject weak ones)
 
 Run:
   blog-generate --passes 1-6 --count 5

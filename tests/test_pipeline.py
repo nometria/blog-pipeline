@@ -1,4 +1,4 @@
-"""Tests for blog-pipeline — no external APIs required."""
+"""Tests for blog-pipeline - no external APIs required."""
 import sys
 import os
 import pytest

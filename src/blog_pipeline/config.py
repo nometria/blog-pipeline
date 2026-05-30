@@ -13,7 +13,7 @@ LLM_MODEL    = os.environ.get("LLM_MODEL", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 OPENAI_API_KEY    = os.environ.get("OPENAI_API_KEY", "")
 
-# ── Supabase (optional — set if you want to push/pull from DB) ───────────────
+# ── Supabase (optional - set if you want to push/pull from DB) ───────────────
 SUPABASE_URL      = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_KEY      = os.environ.get("SUPABASE_SERVICE_KEY", "")
 SUPABASE_TABLE    = os.environ.get("SUPABASE_BLOGS_TABLE", "blogs")

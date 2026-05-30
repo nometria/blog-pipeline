@@ -1,5 +1,5 @@
 """
-Filesystem backend — stores posts as ``<slug>.md`` + ``_metadata.json`` sidecar.
+Filesystem backend - stores posts as ``<slug>.md`` + ``_metadata.json`` sidecar.
 
 Always available, zero external deps.
 

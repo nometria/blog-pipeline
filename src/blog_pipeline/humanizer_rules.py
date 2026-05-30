@@ -1,5 +1,5 @@
 """
-Humanizer rules engine — configurable via YAML or programmatic defaults.
+Humanizer rules engine - configurable via YAML or programmatic defaults.
 
 Priority:
     1. Path from ``HUMANIZER_RULES`` env var
