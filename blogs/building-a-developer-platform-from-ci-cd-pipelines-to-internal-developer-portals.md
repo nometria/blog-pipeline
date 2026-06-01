@@ -18,7 +18,7 @@ The architecture follows a layered model: infrastructure primitives at the botto
 
 ## Building the Foundation: CI/CD Pipelines as the Backbone
 
-Your **CI/CD pipelines** form the nervous system of your developer platform. They should be standardized yet extensible, enforcing best practices while accommodating team-specific needs. At scale, the right infrastructure choices matter—learn [how we reduced build times by 80 at scale a kubernetes based ci infrastructure j](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j).
+Your **CI/CD pipelines** form the nervous system of your developer platform. They should be standardized yet extensible, enforcing best practices while accommodating team-specific needs. At scale, the right infrastructure choices matter—learn [how we reduced build times by 80% at scale with a Kubernetes-based CI infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j). Additionally, selecting the appropriate build system is crucial, so explore [Bazel vs Gradle vs Nx: choosing the right build system for monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024).
 
 Here's a reusable GitHub Actions workflow that demonstrates this balance:
 
@@ -56,10 +56,4 @@ jobs:
           environment: ${{ inputs.deploy-environment }}
 ```
 
-Teams consume this through a simple reference, inheriting organizational standards automatically while focusing on their service-specific configuration. If you're managing a monorepo, your build system choice significantly impacts pipeline performance—see our guide on [bazel vs gradle vs nx choosing the right build system for monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024).
-
-## Infrastructure as Code: Terraform, Pulumi, and GitOps Workflows
-
-**Self-service infrastructure** requires codified, version-controlled definitions. The choice between Terraform and Pulumi often depends on your team's preferences. Both support the same fundamental pattern: infrastructure changes flow through pull requests.
-
-A Pulumi ex
+Teams consume this through a simple referen

@@ -2,7 +2,7 @@
 
 Your build times are crushing developer productivity. What started as 30-second builds has ballooned into 15-minute coffee breaks, and your team spends more time waiting than coding. If this sounds familiar, you're not alone. Your choice of monorepo build system might be the culprit.
 
-As codebases grow and organizations embrace monorepos for better code sharing and consistency, the build tool you choose becomes a critical infrastructure decision. Let's dissect Bazel, Gradle, and Nx to help you select the best build tool for your specific needs.
+As codebases grow and organizations embrace monorepos for better code sharing and consistency, the build tool you choose becomes a critical infrastructure decision. Let's break down Bazel, Gradle, and Nx to help you select the best build tool for your specific needs.
 
 ## What is a Monorepo? Quick Overview and Benefits
 
@@ -50,23 +50,4 @@ java_library(
 
 ### Overview
 
-Gradle has evolved from a JVM build tool into a capable monorepo solution. With features like build caching and the Gradle Enterprise platform, it's a strong contender for JVM-heavy organizations. For teams looking to optimize their CI infrastructure, understanding [how we reduced build times by 80 at scale a kubernetes based ci infrastructure j](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) can provide valuable insights into what's possible with the right setup.
-
-### Pros
-
-- **Mature JVM ecosystem**: First-class support for Java, Kotlin, and Android
-- **Flexible DSL**: Kotlin or Groovy configuration
-- **Gradle Enterprise**: Commercial solution for caching and insights
-- **Familiar to Java developers**: Lower adoption barrier for JVM teams
-
-### Cons
-
-- **Configuration complexity**: Build scripts can become unwieldy
-- **Memory hungry**: Large builds consume significant resources
-- **Polyglot limitations**: Less elegant for non-JVM languages
-
-Whichever build system you choose, consider pairing it with [how to design and implement feature flags infrastructure that scales](/blog/how-to-design-and-implement-feature-flags-infrastructure-that-scales) to safely roll out changes across your monorepo.
-
-```kotlin
-// settings.gradle.kts
-rootProject.name = "my-monore
+Gradle has evolved from a JVM build tool into a capable monorepo option. With features like build caching and the Gradle Enterprise platform, it's a strong contender for JVM-heavy organizations. For teams looking to optimize their CI infrastructure, understanding [how we reduced build times by 80 at scale a kubernetes based ci infrastructure j](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) can provide valuable insights into what's possible with the right tooling choices. Additionally, you may want to consider [how to design and implement feature flags infrastructure that scales](/blog/how-to-design-and-implement-feature-flags-infrastructure-that-scales) to complement your build system with safe deployment practices.

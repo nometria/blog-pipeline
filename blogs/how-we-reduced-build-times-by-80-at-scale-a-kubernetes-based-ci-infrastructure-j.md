@@ -21,15 +21,15 @@ Profiling our builds revealed that only 40% of wall-clock time was actual compil
 
 We evaluated GitHub Actions, CircleCI, BuildKite, and Kubernetes-native options. Our decision matrix prioritized:
 
-1. **Cost efficiency at scale** — We needed elastic scaling without premium SaaS pricing
-2. **Customization** — Our monorepo required specific tooling (and choosing the right build system for monorepos matters—see our comparison of [Bazel vs Gradle vs Nx](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024))
-3. **Existing expertise** — Our team already operated production Kubernetes clusters
+1. **Cost efficiency at scale**: We needed elastic scaling without premium SaaS pricing
+2. **Customization**: Our monorepo required specific tooling (and choosing the right build system for monorepos matters. See our comparison of [Bazel vs Gradle vs Nx](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024))
+3. **Existing expertise**: Our team already operated production Kubernetes clusters
 
 We chose a **Kubernetes-based CI infrastructure** using Tekton for pipeline orchestration. The ability to use our existing cluster expertise, combined with true elastic scaling and complete control over the build environment, made this the clear winner.
 
 ## Architecture Deep Dive
 
-Our Kubernetes build pipeline architecture centers on three core components:
+Our Kubernetes build pipeline architecture centers on three core components. This work became a foundational piece of [building a developer platform from CI/CD pipelines to internal developer portals](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals):
 
 ```yaml
 # Simplified Tekton Pipeline structure
@@ -57,8 +57,4 @@ spec:
 
 **Key architectural decisions:**
 
-- **Ephemeral build pods**: Every build gets a fresh environment, eliminating state corruption
-- **Workspace persistence**: PVCs backed by high-IOPS NVMe storage for source code and dependencies
-- **Kaniko for builds**: Rootless container builds without Docker-in-
-
-This CI infrastructure became the foundation of our broader developer platform initiative. If you're thinking about similar improvements, check out our guide on [Building a Developer Platform from CI CD Pipelines to Internal Developer Portals](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals) for the full picture. We also integrated [feature flags infrastructure](/blog/how-to-design-and-implement-feature-flags-infrastructure-that-scales) to enable safer deployments directly from our pipelines.
+- **Ephemeral build pods**: Every build gets a fresh environment, eliminating state drift. We also implemented [feature flags infrastructure that scales](/blog/how-to-design-and-implement-feature-flags-infrastructure-that-scales) to gradually roll out new build configurations without disrupting developer workflows.

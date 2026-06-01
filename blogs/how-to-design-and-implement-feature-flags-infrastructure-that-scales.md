@@ -1,6 +1,6 @@
 # How to Design and Implement Feature Flags Infrastructure That Scales
 
-Every engineering team eventually faces the same inflection point: your scrappy boolean checks scattered across the codebase have become an unmaintainable mess, deployments feel like Russian roulette, and your product team is begging for controlled rollouts. Building a proper **feature flags infrastructure** isn't just a nice-to-have. It's the backbone of modern continuous delivery.
+Every engineering team hits the same inflection point eventually. Your scrappy boolean checks scattered across the codebase have become an unmaintainable mess. Deployments feel like Russian roulette. Your product team is begging for controlled rollouts. Building a proper **feature flags infrastructure** isn't just a nice-to-have. It's the backbone of modern continuous delivery.
 
 This guide walks you through designing a **scalable feature flags** system from the ground up, whether you're building in-house or evaluating build-vs-buy decisions. Let's architect something that won't crumble under production traffic.
 
@@ -26,7 +26,7 @@ Your storage layer must balance consistency, availability, and query performance
 | etcd/Consul | Distributed systems, built-in watching | Operational overhead |
 | S3 + CDN | Edge evaluation, global distribution | Eventual consistency |
 
-For most **feature toggle systems**, a hybrid approach works best: PostgreSQL as the source of truth with Redis as the read layer.
+For most **feature toggle systems**, a hybrid approach works best. Use PostgreSQL as the source of truth with Redis as the read layer.
 
 ## Step 3: Design an Efficient Flag Evaluation Engine
 
@@ -46,11 +46,9 @@ class FlagEvaluator:
         
         # Fall back to percentage rollout
         if flag.rollout_percentage > 0:
-            bucket = self._hash_to_bucket(flag_key, context.user_id)
-            if bucket < flag.rollout_percentage:
-                return FlagResult(value=flag.enabled_variation, reason="ROLLOUT")
-        
-        return FlagResult(value=flag.default_v
+            bucket
 ```
 
-Feature flags work best when integrated into a broader [developer platform that connects your CI/CD pipelines](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals) with deployment workflows. Additionally, before building a complex distributed feature flag service, consider [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling) and whether a simpler architecture might serve you better.
+Feature flags infrastructure integrates naturally with your broader [developer platform, from CI/CD pipelines to internal developer portals](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals). This tight integration ensures that flag changes flow seamlessly through your deployment process.
+
+When considering whether to build your own flag service or adopt an existing solution, keep in mind the lessons from [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling). Sometimes a simpler, more consolidated approach serves teams better than a distributed architecture.
