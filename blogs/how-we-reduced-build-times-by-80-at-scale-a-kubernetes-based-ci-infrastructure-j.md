@@ -25,7 +25,7 @@ We evaluated GitHub Actions, CircleCI, BuildKite, and Kubernetes-native options.
 2. **Customization**: Our monorepo required specific tooling (and choosing the right build system for monorepos matters. See our comparison of [Bazel vs Gradle vs Nx](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024))
 3. **Existing expertise**: Our team already operated production Kubernetes clusters
 
-We chose a **Kubernetes-based CI infrastructure** using Tekton for pipeline orchestration. The ability to use our existing cluster expertise, combined with true elastic scaling and complete control over the build environment, made this the clear winner.
+We chose a **Kubernetes-based CI infrastructure** using Tekton for pipeline orchestration. The ability to use our existing cluster expertise, combined with true elastic scaling and complete control over the build environment, made this the clear winner. It's also worth noting [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling)—we applied those lessons here by keeping our CI components appropriately consolidated.
 
 ## Architecture Deep Dive
 
@@ -49,12 +49,3 @@ spec:
       taskRef:
         name: parallel-test-runner
       runAfter: ["fetch-source"]
-    - name: build-image
-      taskRef:
-        name: kaniko-build
-      runAfter: ["run-tests"]
-```
-
-**Key architectural decisions:**
-
-- **Ephemeral build pods**: Every build gets a fresh environment, eliminating state drift. We also implemented [feature flags infrastructure that scales](/blog/how-to-design-and-implement-feature-flags-infrastructure-that-scales) to gradually roll out new build configurations without disrupting developer workflows.

@@ -49,6 +49,4 @@ class FlagEvaluator:
             bucket
 ```
 
-Feature flags infrastructure integrates naturally with your broader [developer platform, from CI/CD pipelines to internal developer portals](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals). This tight integration ensures that flag changes flow seamlessly through your deployment process.
-
-When considering whether to build your own flag service or adopt an existing solution, keep in mind the lessons from [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling). Sometimes a simpler, more consolidated approach serves teams better than a distributed architecture.
+Feature flags are a critical component of any [developer platform](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals), enabling teams to decouple deployments from releases. When evaluating whether to build or buy this infrastructure, consider the same trade-offs you'd apply to [choosing the right build system](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024)—complexity, scale, and long-term maintenance burden all factor into the decision.

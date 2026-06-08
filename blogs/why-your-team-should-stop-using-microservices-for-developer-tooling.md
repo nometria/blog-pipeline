@@ -36,12 +36,8 @@ Production systems and internal tools have fundamentally different characteristi
 
 ### Scale Profile
 
-Your production API might handle 100,000 requests per second. Your internal deployment CLI handles maybe 100 invocations per day. The architectural patterns that make sense at production scale become pure overhead at internal tool scale. This is also why choosing the right build system matters—see our comparison of [Bazel vs Gradle vs Nx Choosing the Right Build System for Monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) for tools that match your actual needs.
+Your production API might handle 100,000 requests per second. Your internal deployment CLI handles maybe 100 invocations per day. The architectural patterns that make sense at production scale become pure overhead at internal tool scale. This is also why choosing the right build system matters. See our comparison of [Bazel vs Gradle vs Nx Choosing the Right Build System for Monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) for tools that match your actual needs.
 
 ### User Tolerance
 
-External users will tolerate some latency for reliability. Internal developers will abandon a slow tool for a shell script in their dotfiles. Every network hop you add to your **internal tooling architecture** is latency your developers feel directly. This is exactly why [How We Reduced Build Times by 80 at Scale a Kubernetes Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) focused on eliminating unnecessary complexity.
-
-### Change Velocity
-
-Internal tools should evolve rapidly based on developer feedback. With microservices, a sim
+External users will tolerate some latency for reliability. Internal developers will abandon a slow tool for a shell script in their dotfiles. Every network hop you add to your **internal tooling architecture** is latency your developers feel directly. This is exactly why [How We Reduced Build Times by 80 at Scale a Kubernetes Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) demonstrates the importance of optimizing for speed in developer-facing systems.
