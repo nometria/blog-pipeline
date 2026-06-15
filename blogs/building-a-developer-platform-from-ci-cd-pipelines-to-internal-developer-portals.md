@@ -18,7 +18,7 @@ The architecture follows a layered model: infrastructure primitives at the botto
 
 ## Building the Foundation: CI/CD Pipelines as the Backbone
 
-Your **CI/CD pipelines** form the nervous system of your developer platform. They should be standardized yet extensible, enforcing best practices while accommodating team-specific needs. At scale, the right infrastructure choices matter—learn [How We Reduced Build Times by 80% at Scale with a Kubernetes-Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) to see what's possible. Selecting the appropriate build system is also critical, so explore [Bazel vs Gradle vs Nx: Choosing the Right Build System for Monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) before committing to a toolchain.
+Your **CI/CD pipelines** form the nervous system of your developer platform. They should be standardized yet extensible, enforcing best practices while accommodating team-specific needs. At scale, the right infrastructure choices matter. Learn [How We Reduced Build Times by 80% at Scale with a Kubernetes-Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) to see what's possible. Selecting the appropriate build system is also critical, so explore [Bazel vs Gradle vs Nx: Choosing the Right Build System for Monorepos in 2024](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) before committing to a toolchain.
 
 Here's a reusable GitHub Actions workflow that demonstrates this balance:
 
@@ -47,6 +47,4 @@ jobs:
         
       - name: Build Container Image
         run: |
-          docker build -t ${{ inputs.service-name }}:${{ github.sha }} .
-          
-      -
+          docker build -t ${{ input

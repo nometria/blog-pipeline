@@ -49,4 +49,4 @@ class FlagEvaluator:
             bucket
 ```
 
-Feature flags are a critical component of any [developer platform](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals), enabling teams to decouple deployments from releases. When evaluating whether to build or buy this infrastructure, consider the same trade-offs you'd apply to [choosing the right build system](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024)—complexity, scale, and long-term maintenance burden all factor into the decision.
+Feature flags are a critical component of any mature [developer platform](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals), enabling teams to ship code safely and iterate quickly. When integrating your feature flag system with your build pipeline, consider how your [choice of build system](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) affects flag configuration deployment across services in a monorepo.
