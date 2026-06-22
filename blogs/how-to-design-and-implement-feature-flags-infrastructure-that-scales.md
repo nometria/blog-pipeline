@@ -49,4 +49,6 @@ class FlagEvaluator:
             bucket
 ```
 
-Feature flags are a critical component of any mature [developer platform](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals), enabling teams to ship code safely and iterate quickly. When integrating your feature flag system with your build pipeline, consider how your [choice of build system](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024) affects flag configuration deployment across services in a monorepo.
+Feature flags work best when integrated into a broader [developer platform that connects CI/CD pipelines to internal developer portals](/blog/building-a-developer-platform-from-ci-cd-pipelines-to-internal-developer-portals). This gives teams visibility into which flags are active across environments.
+
+When considering whether to build your feature flag service as a standalone microservice or integrate it into existing tooling, it's worth reading about [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling). Sometimes a simpler, monolithic approach serves you better.

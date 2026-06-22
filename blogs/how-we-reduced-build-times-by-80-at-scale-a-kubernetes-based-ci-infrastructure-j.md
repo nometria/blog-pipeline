@@ -22,7 +22,7 @@ Profiling our builds revealed that only 40% of wall-clock time was actual compil
 We evaluated GitHub Actions, CircleCI, BuildKite, and Kubernetes-native options. Our decision matrix prioritized:
 
 1. **Cost efficiency at scale**: We needed elastic scaling without premium SaaS pricing
-2. **Customization**: Our monorepo required specific tooling (and choosing the right build system for monorepos matters. See our comparison of [Bazel vs Gradle vs Nx](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024))
+2. **Customization**: Our monorepo required specific tooling. Choosing the right build system for monorepos matters. See our comparison of [Bazel vs Gradle vs Nx](/blog/bazel-vs-gradle-vs-nx-choosing-the-right-build-system-for-monorepos-in-2024)
 3. **Existing expertise**: Our team already operated production Kubernetes clusters
 
 We chose a **Kubernetes-based CI infrastructure** using Tekton for pipeline orchestration. The ability to use our existing cluster expertise, combined with true elastic scaling and complete control over the build environment, made this the clear winner. We've written about [why your team should stop using microservices for developer tooling](/blog/why-your-team-should-stop-using-microservices-for-developer-tooling). We applied those lessons here by keeping our CI components appropriately consolidated.
@@ -37,4 +37,5 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: microservice-build
-s
+```
+<!

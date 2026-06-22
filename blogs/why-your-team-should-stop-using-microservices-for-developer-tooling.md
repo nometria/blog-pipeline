@@ -40,4 +40,4 @@ Your production API might handle 100,000 requests per second. Your internal depl
 
 ### User Tolerance
 
-External users will tolerate some latency for reliability. Internal developers will abandon a slow tool for a shell script in their dotfiles. Every network hop you add to your **internal tooling architecture** is latency your developers feel directly. This is exactly why [How We Reduced Build Times by 80 at Scale a Kubernetes Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) demonstrates the importance of optimizing for developer experience over architectural purity.
+External users will tolerate some latency for reliability. Internal developers will abandon a slow tool for a shell script in their dotfiles. Every network hop you add to your **internal tooling architecture** is latency your developers feel directly. This is exactly why [How We Reduced Build Times by 80 at Scale a Kubernetes Based CI Infrastructure](/blog/how-we-reduced-build-times-by-80-at-scale-a-kubernetes-based-ci-infrastructure-j) demonstrates the importance of optimizing for speed over architectural purity.
