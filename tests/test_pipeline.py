@@ -94,3 +94,32 @@ def test_score_ai_import():
     """score_ai should be importable."""
     from blog_pipeline.ai_detector import score_ai
     assert callable(score_ai)
+
+
+def test_resolve_length_presets():
+    from blog_pipeline.pipeline import resolve_length, LENGTH_WORDS
+
+    assert resolve_length("short") == LENGTH_WORDS["short"]
+    assert resolve_length("standard") == LENGTH_WORDS["standard"]
+    assert resolve_length("long") == LENGTH_WORDS["long"]
+    # raw ints pass through; unknown presets fall back
+    assert resolve_length(950) == 950
+    assert resolve_length("nonsense", fallback=1100) == 1100
+
+
+def test_pass3_content_injects_tone_and_length(monkeypatch):
+    """pass3_content should weave the chosen tone + length into the prompt."""
+    from blog_pipeline import pipeline
+
+    captured = {}
+
+    def fake_ask(prompt, max_tokens=8096):
+        captured["prompt"] = prompt
+        return "# Post\n\nBody."
+
+    monkeypatch.setattr(pipeline, "ask_llm", fake_ask)
+    plan = {"title": "T", "type": "how-to", "outline": ["a"], "seo_keywords": ["k"]}
+    pipeline.pass3_content(plan, tone="conversational", length="long")
+
+    assert "Target word count: 2000" in captured["prompt"]
+    assert "coffee" in captured["prompt"].lower()  # conversational tone guidance

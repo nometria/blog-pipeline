@@ -85,11 +85,36 @@ Rules:
         return []
 
 
-def pass2_plan(topic: dict) -> dict:
+# ── Tone & length presets (shared by the CLI and the hosted web tool) ─────────
+TONE_GUIDANCE = {
+    "technical":    "Write for senior engineers. Be precise, assume fluency, lead with the tradeoffs.",
+    "conversational": "Write like you're explaining it to a smart colleague over coffee. Warm, direct, first person.",
+    "authoritative": "Write with the confidence of a domain expert. Make strong, defensible claims.",
+    "playful":      "Keep it light and witty without being unprofessional. Occasional dry humor is fine.",
+    "neutral":      "Write clear, plain, neutral prose. No hype, no filler.",
+}
+
+LENGTH_WORDS = {
+    "short":    700,
+    "standard": 1200,
+    "long":     2000,
+}
+
+
+def resolve_length(length, fallback=1200) -> int:
+    """Map a length preset (or raw int) to a target word count."""
+    if isinstance(length, int):
+        return length
+    return LENGTH_WORDS.get(str(length or "").strip().lower(), fallback)
+
+
+def pass2_plan(topic: dict, length: str = "standard") -> dict:
     """Plan the structure of one blog post."""
+    target_words = resolve_length(length)
     prompt = f"""
 Plan a blog post titled: "{topic['title']}"
 Type: {topic.get('type', 'technical-deep-dive')}
+Target word count: {target_words}
 
 Return JSON: {{
   "title": "...",
@@ -112,16 +137,27 @@ Return ONLY the JSON object.
         return {**topic, "outline": [], "seo_keywords": [], "tags": []}
 
 
-def pass3_content(plan: dict) -> str:
-    """Generate full markdown content from a plan."""
+def pass3_content(plan: dict, tone: str = "technical", length: str = None) -> str:
+    """Generate full markdown content from a plan.
+
+    Args:
+        plan:   Plan dict from pass2_plan.
+        tone:   One of TONE_GUIDANCE keys (technical/conversational/...).
+        length: Length preset (short/standard/long) or raw int. Falls back to
+                the plan's own word_count when omitted.
+    """
+    target_words = resolve_length(length, plan.get("word_count", 1200))
+    tone_line = TONE_GUIDANCE.get(str(tone or "").strip().lower(), TONE_GUIDANCE["technical"])
     prompt = f"""
 Write a complete blog post in markdown.
 
 Title: {plan['title']}
 Type: {plan.get('type', 'technical-deep-dive')}
 Outline: {json.dumps(plan.get('outline', []))}
-Target word count: {plan.get('word_count', 1200)}
+Target word count: {target_words}
 SEO keywords to include: {', '.join(plan.get('seo_keywords', []))}
+
+Tone: {tone_line}
 
 Rules:
 - Start with a strong hook (no "Introduction" heading)
@@ -194,6 +230,10 @@ def main():
     parser.add_argument("--count", type=int, default=5, help="Number of blogs to generate")
     parser.add_argument("--niche", default="developer tooling and infrastructure",
                         help="Topic niche for topic generation")
+    parser.add_argument("--tone", default="technical", choices=sorted(TONE_GUIDANCE.keys()),
+                        help="Writing tone for content generation (default: technical)")
+    parser.add_argument("--length", default="standard",
+                        help="Length preset (short/standard/long) or a target word count")
     parser.add_argument("--audit", action="store_true", help="Enable Pass 7 (audit gate)")
     parser.add_argument("--audit-threshold", type=int, default=50,
                         help="Minimum audit score to keep a post (default: 50)")
@@ -243,7 +283,7 @@ def main():
         for t in topics:
             title = t["title"]
             if title not in planned:
-                planned[title] = pass2_plan(t)
+                planned[title] = pass2_plan(t, length=args.length)
                 time.sleep(0.5)
         PLANS_CACHE.write_text(json.dumps(planned, indent=2))
         plans = list(planned.values())
@@ -262,7 +302,7 @@ def main():
             if path.exists():
                 print(f"  skip (exists): {slug[:50]}")
                 continue
-            content = pass3_content(plan)
+            content = pass3_content(plan, tone=args.tone, length=args.length)
             path.write_text(content, encoding="utf-8")
             print(f"  wrote: {path.name}")
             time.sleep(1)

@@ -368,6 +368,10 @@ Options:
   --passes RANGE       Pipeline passes to run (default: 1-6)
   --count N            Number of blogs to generate (default: 5)
   --niche TEXT         Topic niche (default: "developer tooling and infrastructure")
+  --tone TONE          Writing tone: technical | conversational | authoritative |
+                       playful | neutral (default: technical)
+  --length LEN         Length preset short | standard | long, or a word count
+                       (default: standard ~ 1200 words)
   --audit              Enable Pass 7 audit gate
   --audit-threshold N  Minimum audit score to keep a post (default: 50)
 ```
